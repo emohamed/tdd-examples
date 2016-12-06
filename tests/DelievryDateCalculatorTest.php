@@ -70,7 +70,7 @@ class DeliveryDateCalculatorTest extends TestCase
      * @dataProvider provideTestData
      */
     public function testShifts($base_date, $shift, $expected_date, $message) {
-        $this->calc->setTime(new DateTime($base_date));
+        $this->calc->setTime(new DateTimeImmutable($base_date));
         $delivery_date = $this->calc->calculate($shift);
         $this->assertEquals($expected_date, $delivery_date->format('Y-m-d'), $message);
     }
@@ -82,7 +82,7 @@ class DeliveryDateCalculatorTest extends TestCase
         $this->assertEquals('2016-11-22', $delivery_date->format('Y-m-d'));
 
         $delivery_date = $this->calc->calculate(1);
-        $this->assertEquals('2016-11-23', $delivery_date->format('Y-m-d'));
+        $this->assertEquals('2016-11-22', $delivery_date->format('Y-m-d'));
     }
 
 }
