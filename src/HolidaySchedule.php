@@ -13,7 +13,7 @@ class HolidaySchedule {
 		$this->cache = new Cache(CACHE_DIR);
 	}
 
-	private function fetch_holidays_for_year($year) {
+	function fetch_holidays_for_year($year) {
 		if (isset($this->years_data[$year])) {
 			return $this->years_data[$year];
 		}

@@ -11,13 +11,15 @@ class DeliveryDateCalculatorTest extends TestCase
 
     public function setup() {
         $this->calc = new DeliveryDateCalculator();
-        // $holiday_schedule_mock = m::mock('HolidaySchedule');
-        // $holiday_schedule_mock->shouldReceive('is_holiday', function () {
-        //     dd(__FILE__ . ": " . __LINE__);
-        // });
-        // $holiday_schedule_mock->is_holiday();
+        
+        $holiday_schedule_mock = m::mock('HolidaySchedule');
+        $holiday_schedule_mock
+            ->shouldReceive('is_holiday')
+            ->andReturnUsing(function ($date) {
+               return in_array($date->format('m-d'), ['01-01', '03-03', '07-04']);
+            });
 
-        // $this->calc->time = strtotime('');
+        $this->calc->holiday_schedule = $holiday_schedule_mock;
     }
 
     public function tearDown() {
