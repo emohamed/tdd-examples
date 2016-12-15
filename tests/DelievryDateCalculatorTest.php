@@ -1,7 +1,9 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use Mockery as m;
 
-require __DIR__ . '/../src/DeliveryDateCalculator.php';
+require_once __DIR__ . '/../src/DeliveryDateCalculator.php';
+require_once __DIR__ . '/../src/HolidaySchedule.php';
 
 class DeliveryDateCalculatorTest extends TestCase
 {
@@ -9,11 +11,17 @@ class DeliveryDateCalculatorTest extends TestCase
 
     public function setup() {
         $this->calc = new DeliveryDateCalculator();
+        // $holiday_schedule_mock = m::mock('HolidaySchedule');
+        // $holiday_schedule_mock->shouldReceive('is_holiday', function () {
+        //     dd(__FILE__ . ": " . __LINE__);
+        // });
+        // $holiday_schedule_mock->is_holiday();
+
         // $this->calc->time = strtotime('');
     }
 
     public function tearDown() {
-
+        m::close();
     }
 
     public function provideTestData() {

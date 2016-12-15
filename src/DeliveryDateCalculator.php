@@ -1,11 +1,12 @@
 <?php
+require_once(__DIR__ . '/HolidaySchedule.php');
+
 class DeliveryDateCalculator {
-	// Base DateTime used for calculations
 	private $time;
-	public $bank_holidays = ['01-01', '03-03', '07-04'];
 
 	function __construct() {
 		$this->time = new DateTimeImmutable();
+		$this->holiday_schedule = new HolidaySchedule();
 	}
 
 	function setTime(DateTimeImmutable $time) {
@@ -34,11 +35,7 @@ class DeliveryDateCalculator {
 	}
 
 	function is_business_day($time) {
-		return !$this->is_weekend($time) && !$this->is_bank_holiday($time);
-	}
-
-	function is_bank_holiday($time) {
-		return in_array($time->format('m-d'), $this->bank_holidays);
+		return !$this->is_weekend($time) && !$this->holiday_schedule->is_holiday($time);
 	}
 
 	function is_weekend($time) {
